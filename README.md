@@ -23,3 +23,5 @@ git clone https://github.com/bleshik/folders-to-flickr-sets-uploader.git
 cd folders-to-flickr-sets-uploader
 ./upload-sets-in-the-folder.sh folder
 ```
+
+You can safely execute the script several times, because it stores which files are uploaded.
