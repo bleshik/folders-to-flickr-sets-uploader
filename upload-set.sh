@@ -20,17 +20,22 @@
 set -o nounset
 
 SETS=`flickcurl photosets.getList`
+DIR=`basename $1`
+cd "$1/.."
 
-for i in `find $1` ; do
+for i in `find $DIR` ; do
     if [ -f "$i" ] ; then
         FILE_NAME=`basename $i`
-        if [ "$FILE_NAME" == ".uploaded" ] ; then
+        EXTENSION=${FILE_NAME##*.}
+
+        if [ "$EXTENSION" != "jpg" ] && [ "$EXTENSION" != "jpeg" ] && [ "$EXTENSION" != "png" ] ; then
             continue
         fi
+
         DIR=`dirname $i`
         SET_NAME=`echo $DIR | sed -e 's/\//. /g'`
         TAGS=`echo $DIR | sed -e 's/\// /g'`
-        SET_ID=`echo $SETS | grep "title: '$SET_NAME'" | head -n1 | sed -e 's/.*ID \([0-9]*\) .*/\1/g'`
+        SET_ID=`echo "$SETS" | grep "title: '$SET_NAME'" | head -n1 | sed -e 's/.*ID \([0-9]*\) .*/\1/g'`
         
         if [ ! -f "$DIR/.uploaded" ] ; then
             touch "$DIR/.uploaded"
@@ -53,13 +58,13 @@ for i in `find $1` ; do
                     echo Creating the set \"$SET_NAME\" with the primary photo \"$i\"
                     SET_ID=`flickcurl photosets.create "$SET_NAME" "" $PHOTO_ID | grep "Photoset " | head -n1 | sed -e 's/.*Photoset \([0-9]*\).*/\1/g'`
                     SETS=`flickcurl photosets.getList`
-                    echo Created the set
+                    echo Created the set with ID \"$SET_ID\"
                 else
-                    echo Adding to the set \"$SET_NAME\"
+                    echo Adding to the set \"$SET_NAME\" with ID \"$SET_ID\"
                     flickcurl photosets.addPhoto $SET_ID $PHOTO_ID
                     echo Added the photo
                 fi
-                echo "$FILE_NAME" > "$DIR/.uploaded"
+                echo "$FILE_NAME" >> "$DIR/.uploaded"
             fi
         else
             echo \"$i\" is already uploaded
