@@ -18,10 +18,21 @@ folder
 The script then uploads IMG0.jpg to the "inner-folder" (creates if doesn't exist) set on Flickr and IMG1.jpg to the "inner-folder. another-inner-folder" set (creates if doesn't exist).
 
 ## Usage
+### Console
 ```bash
 git clone https://github.com/bleshik/folders-to-flickr-sets-uploader.git
 cd folders-to-flickr-sets-uploader
 ./upload-sets-in-the-folder.sh folder
 ```
-
 You can safely execute the script several times, because it stores which files are uploaded.
+### Crontab
+Get the script and edit your crontab configuration file with:
+```bash
+git clone https://github.com/bleshik/folders-to-flickr-sets-uploader.git
+crontab -e
+```
+And add the following (change the "~/Picture/Photos" to whatever you have):
+```bash
+*/10 * * * * ~/folders-to-flickr-sets-uploader/upload-sets-in-the-folder.sh ~/Pictures/Photos >> /tmp/flickr.log 2>&1
+```
+Log will be available in "/tmp/flickr.log"
