@@ -1,5 +1,5 @@
 # Script uploading to flickr
-The script requires the utility "flickcurl" to be installed.
+The script requires the utility "flickcurl" to be installed and set up (see https://github.com/dajobe/flickcurl for more information).
 
 ## Example
 Let's assume you have the following structure in a folder:
