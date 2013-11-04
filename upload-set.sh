@@ -20,19 +20,17 @@
 set -o nounset
 
 SETS=`flickcurl photosets.getList`
-DIR=`basename $1`
+DIR=`basename "$1"`
 cd "$1/.."
 
-for i in `find $DIR` ; do
+find "$DIR" | while read i ; do
     if [ -f "$i" ] ; then
-        FILE_NAME=`basename $i`
-        EXTENSION=${FILE_NAME##*.}
-
-        if [ "$EXTENSION" != "jpg" ] && [ "$EXTENSION" != "jpeg" ] && [ "$EXTENSION" != "png" ] ; then
+        FILE_NAME=`basename "$i"`
+        if [ "$FILE_NAME" == ".DS_Store" ] || [ "$FILE_NAME" == ".uploaded" ] ; then
             continue
         fi
 
-        DIR=`dirname $i`
+        DIR=`dirname "$i"`
         SET_NAME=`echo $DIR | sed -e 's/\//. /g'`
         TAGS=`echo $DIR | sed -e 's/\// /g'`
         SET_ID=`echo "$SETS" | grep "title: '$SET_NAME'" | head -n1 | sed -e 's/.*ID \([0-9]*\) .*/\1/g'`
@@ -41,7 +39,7 @@ for i in `find $DIR` ; do
             touch "$DIR/.uploaded"
         fi
         
-        UPLOADED=`cat $DIR/.uploaded`
+        UPLOADED=`cat "$DIR/.uploaded"`
         FILE_IS_UPLOADED=0
         while read u_file ; do
             if [ "$u_file" == "$FILE_NAME" ] ; then
@@ -71,5 +69,3 @@ for i in `find $DIR` ; do
         fi
     fi
 done
-
-
