@@ -9,8 +9,8 @@ folder
 \_ inner-folder
   |
   \_ another-inner-folder
-    |
-    \_ IMG1.jpg
+  | |
+  | \_ IMG1.jpg
   |
   \_ IMG0.jpg
 ```
