@@ -31,8 +31,8 @@ Get the script and edit your crontab configuration file with:
 git clone https://github.com/bleshik/folders-to-flickr-sets-uploader.git
 crontab -e
 ```
-And add the following (change the "~/Picture/Photos" to whatever you have):
+And add the following (change the "~/Pictures/Photos" to whatever you have):
 ```bash
 */10 * * * * ~/folders-to-flickr-sets-uploader/upload-sets-in-the-folder.sh ~/Pictures/Photos >> /tmp/flickr.log 2>&1
 ```
-Log will be available in "/tmp/flickr.log"
+Logs will be available in "/tmp/flickr.log"
