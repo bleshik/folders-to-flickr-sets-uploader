@@ -26,9 +26,9 @@ read PID < "$PID_FILE"
 echo $$ > "$PID_FILE"
 
 echo Uploading all sets in the folder \"$1\"
-for folder in `ls $1` ; do
-    if [ -d "$1/$folder" ] ; then
-        echo Uploading the folder \"$1/$folder\"
-        `dirname "$0"`/upload-set.sh "$1/$folder"
+find "$1" -d 1 | while read folder ; do
+    if [ -d "$folder" ] ; then
+        echo Uploading the folder \"$folder\"
+        `dirname "$0"`/upload-set.sh "$folder"
     fi
 done
