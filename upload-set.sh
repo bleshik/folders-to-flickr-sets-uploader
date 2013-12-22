@@ -1,9 +1,9 @@
 #!/bin/bash - 
 #===============================================================================
 #
-#          FILE: flickr-uploader.sh
+#          FILE: upload-set.sh
 # 
-#         USAGE: ./flickr-uploader.sh FOLDER
+#         USAGE: ./upload-set.sh FOLDER
 # 
 #   DESCRIPTION: 
 # 
