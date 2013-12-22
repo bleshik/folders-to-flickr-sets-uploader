@@ -36,3 +36,11 @@ And add the following (change the "~/Pictures/Photos" to whatever you have):
 */10 * * * * ~/folders-to-flickr-sets-uploader/upload-sets-in-the-folder.sh ~/Pictures/Photos >> /tmp/flickr.log 2>&1
 ```
 Logs will be available in "/tmp/flickr.log"
+
+### You backed up your pics. What's next?
+Yeah, also you can download any set. Let's say you have a set "SET".
+Then just do this:
+```bash
+./download-set.sh SET
+```
+You will have a directory called "SET" with all your pics from the set with original sizes.
