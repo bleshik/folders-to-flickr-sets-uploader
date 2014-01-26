@@ -19,7 +19,7 @@
 
 find "$1" | while read i ; do
     if [ -f "$i" ] ; then
-        DATE_TAKEN=`exiftool "$i" | grep "Create Date" | head -n 1 | sed -e 's/Create Date[^:]*: \(.*\) .*/\1/g' | sed -e 's/:/-/g'`
+        DATE_TAKEN=`exiftool "$i" | grep "Create Date" | head -n 1 | sed -e 's/Create Date[^:]*: \(.*\)/\1/g' | sed -e 's/[: ]/-/g'`
         if [ ! -z "$DATE_TAKEN" ] ; then
             mv "$i" "`dirname \"$i\"`/$DATE_TAKEN-`basename \"$i\"`"
         fi
