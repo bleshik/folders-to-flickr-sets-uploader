@@ -48,6 +48,13 @@ find "$DIR" | while read i ; do
             fi
         done < "$DIR/.uploaded"
         if [ $FILE_IS_UPLOADED -eq 0 ] ; then
+            DATE_TAKEN=`exiftool "$i" | grep "Create Date" | head -n 1 | sed -e 's/Create Date[^:]*: \(.*\) .*/\1/g' | sed -e 's/:/-/g'`
+            if [ ! -z "$DATE_TAKEN" ] ; then
+                echo Renaming \"$i\" to \"$DIR/$DATE_TAKEN-$FILE_NAME\"
+                mv "$DIR/$FILE_NAME" "$DIR/$DATE_TAKEN-$FILE_NAME"
+                i=`dirname "$i"`/$DATE_TAKEN-$FILE_NAME
+                FILE_NAME="$DATE_TAKEN-$FILE_NAME"
+            fi
             echo Uploading \"$i\"
             PHOTO_ID=`flickcurl upload "$i" title "" tags $TAGS | grep "Photo ID: " | head -n1 | sed -e 's/.*Photo ID: \([0-9]*\).*/\1/g'`
             if [ ! -z "$PHOTO_ID" ] ; then
